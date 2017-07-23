@@ -35,7 +35,7 @@ def generator(samples, batch_size=32):
                 right_image = cv2.imread('data/IMG/' + batch_sample[2].split('/')[-1])
 
                 steering_center = float(batch_sample[3])
-                correction = 0.2  # this is a parameter to tune
+                correction = 0.1  # this is a parameter to tune
                 center_angle = steering_center
                 left_angle = steering_center + correction
                 right_angle = steering_center - correction
@@ -53,10 +53,8 @@ def generator(samples, batch_size=32):
 train_generator = generator(train_samples, batch_size=32)
 validation_generator = generator(validation_samples, batch_size=32)
 
-ch, row, col = 3, 80, 320  # Trimmed image format
 
 model = Sequential()
-# Preprocess incoming data, centered around zero with small standard deviation
 model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(160, 320, 3)))
 model.add(Cropping2D(cropping=((70, 25), (0, 0))))
 model.add(Convolution2D(24, 5, 5, subsample=(2, 2), activation='relu'))
