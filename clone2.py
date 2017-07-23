@@ -1,9 +1,8 @@
-import os
 import csv
 
-from keras.models import Sequential
-from keras.layers import Flatten, Dense, Lambda, Cropping2D
 from keras.layers import Convolution2D
+from keras.layers import Flatten, Dense, Lambda, Cropping2D
+from keras.models import Sequential
 from sklearn.utils import shuffle
 
 samples = []
