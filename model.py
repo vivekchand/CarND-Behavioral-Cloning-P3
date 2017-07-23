@@ -5,15 +5,15 @@ from keras.layers import Flatten, Dense, Lambda, Cropping2D
 from keras.models import Sequential
 from sklearn.utils import shuffle
 
-samples = []
+lines = []
 with open('data/driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
     for line in reader:
-        samples.append(line)
+        lines.append(line)
 
 from sklearn.model_selection import train_test_split
 
-train_samples, validation_samples = train_test_split(samples, test_size=0.2)
+train_samples, validation_samples = train_test_split(lines, test_size=0.2)
 
 import cv2
 import numpy as np
@@ -30,11 +30,18 @@ def generator(samples, batch_size=32):
             images = []
             angles = []
             for batch_sample in batch_samples:
-                name = 'data/IMG/' + batch_sample[0].split('/')[-1]
-                center_image = cv2.imread(name)
-                center_angle = float(batch_sample[3])
-                images.append(center_image)
-                angles.append(center_angle)
+                center_image = cv2.imread('data/IMG/' + batch_sample[0].split('/')[-1])
+                left_image = cv2.imread('data/IMG/' + batch_sample[1].split('/')[-1])
+                right_image = cv2.imread('data/IMG/' + batch_sample[2].split('/')[-1])
+
+                steering_center = float(batch_sample[3])
+                correction = 0.2  # this is a parameter to tune
+                center_angle = steering_center
+                left_angle = steering_center + correction
+                right_angle = steering_center - correction
+
+                images.extend([center_image, left_image, right_image])
+                angles.extend([center_angle, left_angle, right_angle])
 
             # trim image to only see section with road
             X_train = np.array(images)
