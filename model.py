@@ -35,7 +35,7 @@ def generator(samples, batch_size=32):
                 right_image = cv2.imread('data/IMG/' + batch_sample[2].split('/')[-1])
 
                 steering_center = float(batch_sample[3])
-                correction = 0.3  # this is a parameter to tune
+                correction = 0.2  # this is a parameter to tune
                 center_angle = steering_center
                 left_angle = steering_center + correction
                 right_angle = steering_center - correction
