@@ -35,13 +35,13 @@ def generator(samples, batch_size=32):
                 right_image = cv2.imread('data/IMG/' + batch_sample[2].split('/')[-1])
 
                 steering_center = float(batch_sample[3])
-                correction = 0.1  # this is a parameter to tune
+                correction = 0.3  # this is a parameter to tune
                 center_angle = steering_center
                 left_angle = steering_center + correction
                 right_angle = steering_center - correction
 
-                images.extend([center_image])
-                angles.extend([center_angle])
+                images.extend([center_image, left_image, right_image])
+                angles.extend([center_angle, left_angle, right_angle])
 
             # trim image to only see section with road
             X_train = np.array(images)
