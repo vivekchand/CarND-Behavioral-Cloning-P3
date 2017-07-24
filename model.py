@@ -35,13 +35,13 @@ def generator(samples, batch_size=32):
                 right_image = cv2.imread('data/IMG/' + batch_sample[2].split('/')[-1])
 
                 steering_center = float(batch_sample[3])
-                correction = 0.2  # this is a parameter to tune
+                correction = 0.05  # this is a parameter to tune
                 center_angle = steering_center
                 left_angle = steering_center + correction
                 right_angle = steering_center - correction
 
-                images.extend([center_image])
-                angles.extend([center_angle])
+                images.extend([center_image, left_image, right_image])
+                angles.extend([center_angle, left_angle, right_angle])
 
             X_train = np.array(images)
             y_train = np.array(angles)
@@ -68,5 +68,5 @@ model.add(Dense(1))
 
 model.compile(loss='mse', optimizer='adam')
 model.fit_generator(train_generator, samples_per_epoch=len(train_samples), validation_data=validation_generator,
-                    nb_val_samples=len(validation_samples), nb_epoch=3)
+                    nb_val_samples=len(validation_samples), nb_epoch=5)
 model.save('model.h5')
