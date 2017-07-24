@@ -18,7 +18,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
+[image1]: ./examples/nVidia_model.png "Model Visualization"
 [image2]: ./examples/placeholder.png "Grayscaling"
 [image3]: ./examples/placeholder_small.png "Recovery Image"
 [image4]: ./examples/placeholder_small.png "Recovery Image"
@@ -54,25 +54,37 @@ The model.py file contains the code for training and saving the convolution neur
 
 ####1. An appropriate model architecture has been employed
 
-My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
+My model is based on Nvidia's self-driving car model. It consists of a Normalization layer, next a cropping layer, 
+followed by 5 convolution layers, one flatten layer, 3 fully connected layer & 1 output layer.
+![Nvidia's self-driving car model][image1]
 
-The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
+Layer 1: Image Normalization layer
+Layer 2: Cropping Layer -- cropping 70 rows pixel from top of the image & 25 from bottom of the image
+Layer 3: Convolution Layer -- 2x2 stride -- relu activation
+Layer 4: Convolution Layer -- 2x2 stride -- relu activation
+Layer 5: Convolution Layer -- 2x2 stride -- relu activation
+Layer 6: Flatten layer
+Layer 7: Fully connected layer
+Layer 8: Fully connected layer
+Layer 9: Fully connected layer
+Layer 10: Output layer
 
 ####2. Attempts to reduce overfitting in the model
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
-
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 49-52). 
+The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 ####3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 68). Tuned the no. of epochs to 3.
 
 ####4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
-
-For details about how I created the training data, see the next section. 
+Training data was chosen to keep the vehicle driving on the road. There are around 40k training data.
+I used a combination of center lane driving, recovering from the left and right sides of the road. 
+The training data has a maximum of center lane driving & running through autonomous mode at locations where the car 
+went out of track I trained for recovery modes for either shifting from left to right or right to left.
+And a couple of laps was focused onto driving smoothly around the curves.
 
 ###Model Architecture and Training Strategy
 

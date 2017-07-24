@@ -5,16 +5,6 @@ from keras.layers import Flatten, Dense, Lambda, Cropping2D
 from keras.models import Sequential
 from sklearn.utils import shuffle
 
-lines = []
-with open('data/driving_log.csv') as csvfile:
-    reader = csv.reader(csvfile)
-    for line in reader:
-        lines.append(line)
-
-from sklearn.model_selection import train_test_split
-
-train_samples, validation_samples = train_test_split(lines, test_size=0.2)
-
 import cv2
 import numpy as np
 import sklearn
@@ -31,23 +21,24 @@ def generator(samples, batch_size=32):
             angles = []
             for batch_sample in batch_samples:
                 center_image = cv2.imread('data/IMG/' + batch_sample[0].split('/')[-1])
-                # left_image = cv2.imread('data/IMG/' + batch_sample[1].split('/')[-1])
-                # right_image = cv2.imread('data/IMG/' + batch_sample[2].split('/')[-1])
-                #
-                steering_center = float(batch_sample[3])
-                correction = 0.1  # this is a parameter to tune
-                center_angle = steering_center
-                left_angle = steering_center + correction
-                right_angle = steering_center - correction
-
-                images.extend([center_image])
-                angles.extend([center_angle])
+                center_angle = float(batch_sample[3])
+                images.append(center_image)
+                angles.append(center_angle)
 
             X_train = np.array(images)
             y_train = np.array(angles)
             yield sklearn.utils.shuffle(X_train, y_train)
 
 
+lines = []
+with open('data/driving_log.csv') as csvfile:
+    reader = csv.reader(csvfile)
+    for line in reader:
+        lines.append(line)
+
+from sklearn.model_selection import train_test_split
+
+train_samples, validation_samples = train_test_split(lines, test_size=0.2)
 # compile and train the model using the generator function
 train_generator = generator(train_samples, batch_size=32)
 validation_generator = generator(validation_samples, batch_size=32)
