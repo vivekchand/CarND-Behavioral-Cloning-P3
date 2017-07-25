@@ -17,7 +17,6 @@ def generator(samples, batch_size=32):
         shuffle(samples)
         for offset in range(0, num_samples, batch_size):
             batch_samples = samples[offset:offset + batch_size]
-
             images = []
             angles = []
             for batch_sample in batch_samples:
@@ -25,11 +24,9 @@ def generator(samples, batch_size=32):
                 center_angle = float(batch_sample[3])
                 images.append(center_image)
                 angles.append(center_angle)
-
             X_train = np.array(images)
             y_train = np.array(angles)
             yield sklearn.utils.shuffle(X_train, y_train)
-
 
 lines = []
 with open('data/driving_log.csv') as csvfile:
