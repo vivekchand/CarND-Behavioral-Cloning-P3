@@ -1,13 +1,14 @@
 import csv
+import cv2
+import numpy as np
+import sklearn
+
+from sklearn.model_selection import train_test_split
+from sklearn.utils import shuffle
 
 from keras.layers import Convolution2D
 from keras.layers import Flatten, Dense, Lambda, Cropping2D
 from keras.models import Sequential
-from sklearn.utils import shuffle
-
-import cv2
-import numpy as np
-import sklearn
 
 
 def generator(samples, batch_size=32):
@@ -35,8 +36,6 @@ with open('data/driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
     for line in reader:
         lines.append(line)
-
-from sklearn.model_selection import train_test_split
 
 train_samples, validation_samples = train_test_split(lines, test_size=0.2)
 # compile and train the model using the generator function
