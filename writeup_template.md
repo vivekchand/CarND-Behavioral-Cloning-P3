@@ -90,25 +90,46 @@ And a couple of laps was focused onto driving smoothly around the curves.
 
 ####1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
+My first network was a flattened image connected to a single output with the training data provided by Udacity. 
+This kept my car moving in circle, getting inside the lake & coming out again & again :)
+It uses Mean Square Error loss function to minimize the cost between the ground truth & the output predicted, running for 3 epochs.
 
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
+Next added a Lambda layer for image normalization, which ensures the model will normalize input images when making predictions from drive.py 
 
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
+The next change was to try LeNeT architecture with 5 epochs. This felt like a real driver :) 
 
-To combat the overfitting, I modified the model so that ...
-
-Then I ... 
-
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
+Next after some improvements, tried Nvidia's autonomous driving network.  This was some real progress!
+ 
+Improved this further by collecting more training data of multiple categories:
+1. Driving in center
+2. Driving at edges of the road
+3. Recovering from edges to center
+4. Driving in the counter-clockwise direction
+5. Driving on the second track to generalize more
+6. Driving focused on smooth curves
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
 ####2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
+The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes:
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
+| Layer         		|     Description	        					 | 
+|:---------------------:|:----------------------------------------------:| 
+| Input         		| 160x320x3 image   					         | 
+| Normalization     	| Normalize the image 	                         |
+| Cropping				| 70 rows pixel from top  & 25 pixel from bottom |
+| Convolution 5x5	  	| 2x2 stride, 5x5 kernel, 24 depth               |
+| Convolution 5x5	  	| 2x2 stride, 5x5 kernel, 36 depth               |
+| Convolution 5x5	  	| 2x2 stride, 5x5 kernel, 48 depth               |
+| Convolution 3x3	  	| 2x2 stride, 5x5 kernel, 64 depth               |
+| Convolution 3x3	    | 2x2 stride, 5x5 kernel, 64 depth               |
+| Flatten				|												 |
+| Fully-connected       | 100 depth										 |
+| Fully-connected       | 50 depth										 |
+| Fully-connected       | 10 depth										 |
+| Fully-connected       | 1 depth										 |
+| Output                |                                                |
 
 ![alt text][image1]
 
