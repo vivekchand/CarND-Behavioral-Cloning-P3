@@ -66,6 +66,9 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 
 #### 2. Final Model Architecture
 
+My model is based on Nvidia's self-driving car model. 
+![Nvidia's self-driving car model][nvidia_model]
+
 The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes:
 
 | Layer         		|     Description	        					 | 
@@ -84,6 +87,7 @@ The final model architecture (model.py lines 18-24) consisted of a convolution n
 | Fully-connected       | 10 depth										 |
 | Fully-connected       | 1 depth										 |
 | Output                |                                                |
+
 
 #### 3. Creation of the Training Set & Training Process
 
