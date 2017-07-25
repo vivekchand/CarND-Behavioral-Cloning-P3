@@ -69,7 +69,7 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 My model is based on Nvidia's self-driving car model. 
 ![Nvidia's self-driving car model][nvidia_model]
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes:
+The final model architecture (model.py lines 45-57) consisted of a convolution neural network with the following layers and layer sizes:
 
 | Layer         		|     Description	        					 | 
 |:---------------------:|:----------------------------------------------:| 
@@ -91,7 +91,7 @@ The final model architecture (model.py lines 18-24) consisted of a convolution n
 
 #### 3. Creation of the Training Set & Training Process
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 49-52). 
+The model was trained and validated on different data sets to ensure that the model was not overfitting. 
 The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 59). Tuned the no. of epochs to 3.
