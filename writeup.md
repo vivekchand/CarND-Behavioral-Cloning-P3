@@ -112,6 +112,8 @@ These image show what a recovery looks like starting from :
 
 ![alt text][recovery_image2]
 
+Also recorded in counter-clockwise direction, once focused on smooth curves.
+
 Then I repeated this process on track two in order to get more data points.
 
 After the collection process, I had around 40k images.
