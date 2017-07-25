@@ -138,9 +138,8 @@ Here is an example image of center lane driving:
 ![center driving][normal_image]
 
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover.
-These images show what a recovery looks like starting from :
+These image show what a recovery looks like starting from :
 
-![alt text][recovery_image]
 ![alt text][recovery_image2]
 
 Then I repeated this process on track two in order to get more data points.
